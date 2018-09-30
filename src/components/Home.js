@@ -15,7 +15,12 @@ class Home extends Component {
     this.addBoard = this.addBoard.bind(this);
   }
   componentDidMount() {
-    sessionStorage.setItem("myData", "Hi");
+    var data = localStorage.getItem("boards");
+    data = JSON.parse(data);
+    this.setState({
+      boards: data
+    });
+    console.log("DATA", data);
   }
   onPress() {
     console.log("Pressed");
@@ -46,7 +51,7 @@ class Home extends Component {
     event.preventDefault();
   }
   render() {
-    console.log(this.state);
+    console.log("RENDER", this.state);
     return (
       <div className="container">
         <div className="header">
