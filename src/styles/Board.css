@@ -1,0 +1,15 @@
+.board {
+  height: 100px;
+  width: 200px;
+  background-color: #dfe3e6;
+  margin-top: 20px;
+  width: 272px;
+  margin: 20px 0;
+  min-height: 78px;
+  height: 100%;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+}

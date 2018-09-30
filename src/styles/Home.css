@@ -1,0 +1,30 @@
+.header {
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header__title {
+  color: lightgray;
+  font-size: 24px;
+  font-style: italic;
+  font-family: sans-serif;
+  font-weight: 400;
+}
+.board-container {
+  width: 100vw;
+  /* background-color: red; */
+  padding: 10px;
+}
+.board-container__form {
+  height: 78px;
+  width: 272px;
+  background-color: #dfe3e6;
+  border-radius: 3px;
+  height: auto;
+  min-height: 32px;
+  padding: 4px;
+  transition: background 85ms ease-in, opacity 40ms ease-in,
+    border-color 85ms ease-in;
+}
