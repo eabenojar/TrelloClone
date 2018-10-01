@@ -10,10 +10,13 @@ class Board extends Component {
       lists: [],
       listTitle: "",
       listDescription: "",
-      showAddButton: false
+      showAddButton: false,
+      showAddCard: true
     };
     this.addList = this.addList.bind(this);
     this.onHandleChange = this.onHandleChange.bind(this);
+    this.pressAddCard = this.pressAddCard.bind(this);
+    this.exitForm = this.exitForm.bind(this);
   }
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
@@ -72,6 +75,18 @@ class Board extends Component {
       lists: listArr
     });
   }
+  pressAddCard(e, list) {
+    console.log("PREC CARFA", list);
+    this.setState({
+      showAddCard: false
+    });
+  }
+  exitForm(e) {
+    console.log("EXIT PRESSED", e);
+    this.setState({
+      showAddCard: true
+    });
+  }
   render() {
     console.log("RENDER BOARDS", this.state.boards);
     const { board } = this.props.location.state;
@@ -112,6 +127,32 @@ class Board extends Component {
                       <h1 className="lists--container list-title">
                         {list.listTitle}
                       </h1>
+                      {this.state.showAddCard === true ? (
+                        <div className="list__button ">
+                          <button
+                            className="list__button--add"
+                            onClick={e => this.pressAddCard(e, list)}
+                          >
+                            + Add a card
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <form onSubmit={this.addList}>
+                            <label>
+                              <input
+                                type="textarea"
+                                placeholder="Enter list title..."
+                                onChange={this.onHandleChange}
+                              />
+                            </label>
+                            <input type="submit" value="Add List" />
+                          </form>
+                          <button onClick={e => this.exitForm(e, list)}>
+                            X
+                          </button>
+                        </div>
+                      )}
                     </div>
                   );
                 })
