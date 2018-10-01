@@ -1,15 +1,65 @@
 .board {
-  height: 100px;
-  width: 200px;
-  background-color: #dfe3e6;
-  margin-top: 20px;
-  width: 272px;
-  margin: 20px 0;
-  min-height: 78px;
+  min-height: calc(100vh - 40px);
+  height: auto;
+  min-width: 100%;
+  width: auto;
+  background-color: rgb(0, 121, 191);
+  /* margin-top: 20px; */
+  border-radius: 3px;
+}
+.board__header {
+  flex: none;
+  height: auto;
+  overflow: hidden;
+  margin: 0px 4px 8px 8px;
+  position: relative;
+  transition: padding 0.1s ease-in;
+}
+.board-canvas {
+  width: auto;
+
+  overflow-x: scroll;
   height: 100%;
+}
+.board__header--title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 32px;
+  font-family: sans-serif;
+  color: #fff;
+}
+.board__button--add {
+  background-color: rgba(2, 106, 167, 1);
+  border: 1px solid transparent;
+  width: 272px;
+  height: 40px;
+  color: lightgray;
+  border-radius: 3px;
+  font-size: 14px;
+  text-align: left;
+  margin: 8px 4px 8px 8px;
+}
+.board-canvas__lists {
+  width: auto;
+  height: 100vh;
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: row;
+  margin: 8px 4px 8px 8px;
+}
+.board-canvas__lists--container {
+  margin: 0 4px;
+  min-width: 278px;
+  height: 76px;
+  background-color: #dfe3e6;
   border-radius: 3px;
   box-sizing: border-box;
-  display: inline-block;
-  vertical-align: top;
-  white-space: nowrap;
+}
+.list-title {
+  color: #17394d;
+  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  margin: 8px 0 0 8px;
 }

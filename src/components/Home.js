@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../styles/Home.css";
-import Board from "./Board";
 import uuidv1 from "uuid/v1";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -32,15 +32,18 @@ class Home extends Component {
     this.setState({
       boardTitle: event.target.value
     });
-    // console.log(this.state.boardTitle);
+    console.log(this.state.boardTitle);
   }
   addBoard(event) {
+    event.preventDefault();
     console.log("ADDED");
     const obj = {
       boardTitle: this.state.boardTitle,
-      id: uuidv1()
+      id: uuidv1(),
+      lists: []
     };
-    const addBoard = [...this.state.boards];
+    console.log("OBJECT", obj);
+    const addBoard = this.state.boards === null ? [] : [...this.state.boards];
     addBoard.push(obj);
     console.log(addBoard);
     this.setState({
@@ -48,15 +51,12 @@ class Home extends Component {
       boardTitle: ""
     });
     localStorage.setItem("boards", JSON.stringify(addBoard));
-    event.preventDefault();
   }
   render() {
-    console.log("RENDER", this.state);
+    console.log("RENDER", this.state.boards);
+
     return (
       <div className="container">
-        <div className="header">
-          <h1 className="header__title">Trello Clone</h1>
-        </div>
         <div className="board-container">
           <button onClick={this.addList}>+ Add another list</button>
           <div className="board-container__form">
@@ -72,7 +72,25 @@ class Home extends Component {
               <button>X</button>
             </form>
           </div>
-          <Board boards={this.state.boards} />
+          {this.state.boards !== null
+            ? this.state.boards.map((board, i) => {
+                return (
+                  <Link
+                    to={{
+                      pathname: `/board/${board.id}`,
+                      state: {
+                        board
+                      }
+                    }}
+                    key={i}
+                  >
+                    <div board={board} className="board-box">
+                      <h1 className="board-box__title">{board.boardTitle}</h1>
+                    </div>
+                  </Link>
+                );
+              })
+            : null}
         </div>
       </div>
     );

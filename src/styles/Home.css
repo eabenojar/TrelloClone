@@ -1,6 +1,6 @@
 .header {
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(2, 106, 167, 1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,4 +27,19 @@
   padding: 4px;
   transition: background 85ms ease-in, opacity 40ms ease-in,
     border-color 85ms ease-in;
+}
+.board-box {
+  height: 100px;
+  width: 200px;
+  margin: 10px;
+  background-color: rgba(2, 106, 167, 1);
+  padding: 8px;
+  border-radius: 3px;
+}
+.board-box__title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: Helvetica Neue, Arial, Helvetica, sans-serif;
+  line-height: 20px;
 }
