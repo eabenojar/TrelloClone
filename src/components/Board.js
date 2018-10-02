@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../styles/Board.css";
 import List from "./List";
+import uuidv1 from "uuid/v1";
 
 class Board extends Component {
   constructor(props) {
@@ -11,12 +12,16 @@ class Board extends Component {
       listTitle: "",
       listDescription: "",
       showAddButton: false,
-      showAddCard: true
+      showAddCard: true,
+      cardTitle: "",
+      cardDescription: ""
     };
     this.addList = this.addList.bind(this);
     this.onHandleChange = this.onHandleChange.bind(this);
     this.pressAddCard = this.pressAddCard.bind(this);
     this.exitForm = this.exitForm.bind(this);
+    this.onHandleChangeCard = this.onHandleChangeCard.bind(this);
+    this.addCard = this.addCard.bind(this);
   }
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
@@ -52,9 +57,16 @@ class Board extends Component {
       listTitle: event.target.value
     });
   }
+  onHandleChangeCard(event) {
+    console.log(event.target.value);
+    this.setState({
+      cardTitle: event.target.value
+    });
+  }
   addList(event) {
     event.preventDefault();
     var obj = {
+      id: uuidv1(),
       listTitle: this.state.listTitle,
       listDescription: "",
       cards: []
@@ -86,6 +98,28 @@ class Board extends Component {
     this.setState({
       showAddCard: true
     });
+  }
+  addCard(event, list) {
+    event.preventDefault();
+    const obj = {
+      cardTitle: this.state.cardTitle,
+      cardTitleDescription: ""
+    };
+    const selectedBoard = this.state.boards.filter(item => {
+      if (item.id === this.props.location.state.board.id) {
+        return item;
+      }
+    });
+    console.log(selectedBoard);
+    const selectedList = selectedBoard[0].lists.filter(item => {
+      if (item.id === list.id) {
+        return item;
+      }
+    });
+    console.log(selectedList, selectedBoard);
+    selectedList[0].cards.push(obj);
+    // console.log("FINAL LIST", selectedList);
+    console.log("LISSSTST", this.state.boards);
   }
   render() {
     console.log("RENDER BOARDS", this.state.boards);
@@ -138,12 +172,12 @@ class Board extends Component {
                         </div>
                       ) : (
                         <div>
-                          <form onSubmit={this.addList}>
+                          <form onSubmit={e => this.addCard(e, list)}>
                             <label>
                               <input
                                 type="textarea"
                                 placeholder="Enter list title..."
-                                onChange={this.onHandleChange}
+                                onChange={this.onHandleChangeCard}
                               />
                             </label>
                             <input type="submit" value="Add List" />
