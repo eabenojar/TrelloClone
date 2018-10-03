@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/Home.css";
 import uuidv1 from "uuid/v1";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 class Home extends Component {
   constructor(props) {
@@ -9,10 +10,12 @@ class Home extends Component {
     this.state = {
       boards: [],
       hideForm: true,
-      boardTitle: ""
+      boardTitle: "",
+      showModal: false
     };
     this.onChange = this.onChange.bind(this);
-    this.addBoard = this.addBoard.bind(this);
+    this.addList = this.addList.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
   componentDidMount() {
     var data = localStorage.getItem("boards");
@@ -27,6 +30,10 @@ class Home extends Component {
   }
   addList() {
     console.log("ADD LIST");
+    this.setState({ showModal: true });
+  }
+  hideModal() {
+    this.setState({ showModal: false });
   }
   onChange(event) {
     this.setState({
@@ -34,7 +41,7 @@ class Home extends Component {
     });
     console.log(this.state.boardTitle);
   }
-  addBoard(event) {
+  addBoard = event => {
     event.preventDefault();
     console.log("ADDED");
     const obj = {
@@ -51,27 +58,13 @@ class Home extends Component {
       boardTitle: ""
     });
     localStorage.setItem("boards", JSON.stringify(addBoard));
-  }
+  };
   render() {
     console.log("RENDER", this.state.boards);
 
     return (
       <div className="container">
         <div className="board-container">
-          <button onClick={this.addList}>+ Add another list</button>
-          <div className="board-container__form">
-            <form onSubmit={this.addBoard}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Enter list title"
-                value={this.state.boardTitle}
-                onChange={this.onChange}
-              />
-              <input type="submit" value="Add List" />
-              <button>X</button>
-            </form>
-          </div>
           {this.state.boards !== null
             ? this.state.boards.map((board, i) => {
                 return (
@@ -91,6 +84,35 @@ class Home extends Component {
                 );
               })
             : null}
+          <a className="add-board button" onClick={this.addList}>
+            <span>+ Create new board...</span>
+          </a>
+          <Modal
+            showModal={this.state.showModal}
+            handleClose={this.hideModal}
+            addBoard={this.addBoard}
+            props={{ ...this.state }}
+            onChange={this.onChange}
+          >
+            <p>Modal</p>
+            <p>Data</p>
+            <h1>TESTSETTES</h1>
+          </Modal>
+          {this.state.showModal === true ? (
+            <div className="board-container__form">
+              <form onSubmit={this.addBoard}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter list title"
+                  value={this.state.boardTitle}
+                  onChange={this.onChange}
+                />
+                <input type="submit" value="Add List" />
+                <button>X</button>
+              </form>
+            </div>
+          ) : null}
         </div>
       </div>
     );

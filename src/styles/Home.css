@@ -14,8 +14,10 @@
 }
 .board-container {
   width: 100vw;
-  /* background-color: red; */
-  padding: 10px;
+  background-color: #f8f9f9;
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(100vh - 40px);
 }
 .board-container__form {
   height: 78px;
@@ -35,6 +37,26 @@
   background-color: rgba(2, 106, 167, 1);
   padding: 8px;
   border-radius: 3px;
+  display: block;
+}
+.add-board {
+  height: 100px;
+  width: 200px;
+  margin: 10px;
+  background-color: rgba(9, 45, 66, 0.13);
+  padding: 8px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: #6b808c;
+}
+
+.add-board:hover {
+  background-color: rgba(9, 45, 66, 0.23);
 }
 .board-box__title {
   color: #fff;

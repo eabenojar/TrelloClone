@@ -41,7 +41,8 @@
 }
 .board-canvas__lists {
   width: auto;
-  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
   overflow-x: scroll;
   display: flex;
   flex-direction: row;
@@ -50,9 +51,7 @@
 .board-canvas__lists--container {
   margin: 0 4px;
   min-width: 278px;
-  /* height: auto; */
   height: 76px;
-
   background-color: #dfe3e6;
   border-radius: 3px;
   box-sizing: border-box;
@@ -82,4 +81,11 @@
 .list__button--add:hover {
   background-color: #6b808c;
   color: #fff;
+}
+.card-container {
+  height: 50px;
+  min-width: 268px;
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 10px 0px;
 }

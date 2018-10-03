@@ -116,10 +116,22 @@ class Board extends Component {
         return item;
       }
     });
-    console.log(selectedList, selectedBoard);
+    console.log("LIST, BOARD", selectedList, selectedBoard);
     selectedList[0].cards.push(obj);
-    // console.log("FINAL LIST", selectedList);
-    console.log("LISSSTST", this.state.boards);
+    const data = this.state.boards.map(board => {
+      if (board.id === selectedBoard[0].id) {
+        board = selectedBoard[0];
+        return board;
+      }
+      return board;
+    });
+    console.log("DATA FAM", data);
+    this.setState({
+      boards: data
+    });
+    localStorage.setItem("boards", JSON.stringify(data));
+
+    console.log("LISSSTST", this.state.boards, this.state.lists);
   }
   render() {
     console.log("RENDER BOARDS", this.state.boards);
@@ -161,6 +173,15 @@ class Board extends Component {
                       <h1 className="lists--container list-title">
                         {list.listTitle}
                       </h1>
+                      {list.cards !== null
+                        ? list.cards.map((card, i) => {
+                            return (
+                              <div key={i} className="card-container">
+                                <h1>{card.cardTitle}</h1>
+                              </div>
+                            );
+                          })
+                        : null}
                       {this.state.showAddCard === true ? (
                         <div className="list__button ">
                           <button
