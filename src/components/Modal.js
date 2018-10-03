@@ -6,8 +6,8 @@ const Modal = ({
   showModal,
   children,
   props,
-  addBoard,
-  onChange
+  handleAddBoard,
+  handleChange
 }) => {
   const showHideClassName = showModal
     ? "modal display-block"
@@ -16,13 +16,13 @@ const Modal = ({
   return (
     <div className={showHideClassName}>
       <div className="board-container__form modal-main">
-        <form onSubmit={this.addBoard}>
+        <form onSubmit={handleAddBoard}>
           <input
             type="text"
             name="name"
             placeholder="Enter list title"
             value={props.boardTitle}
-            onChange={this.onChange}
+            onChange={handleChange}
           />
           <input type="submit" value="Add List" />
         </form>

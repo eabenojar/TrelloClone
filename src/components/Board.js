@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/Board.css";
 import List from "./List";
 import uuidv1 from "uuid/v1";
+import { DragDropContext } from "react-beautiful-dnd";
 
 class Board extends Component {
   constructor(props) {

@@ -17,7 +17,16 @@
   background-color: #f8f9f9;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   height: calc(100vh - 40px);
+}
+.all-boards {
+  width: 860px;
+  margin-right: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: green;
 }
 .board-container__form {
   height: 78px;
