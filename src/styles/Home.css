@@ -16,9 +16,10 @@
   width: 100vw;
   background-color: #f8f9f9;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   height: calc(100vh - 40px);
+  flex-direction: column;
+  align-items: center;
 }
 .all-boards {
   width: 860px;
@@ -26,7 +27,24 @@
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
-  background-color: green;
+  justify-content: space-around;
+  /* background-color: green; */
+  flex-direction: row;
+}
+
+.board-container-title {
+  line-height: 24px;
+  margin: 4px 0 0;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: sans-serif;
+}
+.board-container__title-section {
+  height: 100px;
+  width: 860px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .board-container__form {
   height: 78px;
@@ -42,7 +60,7 @@
 .board-box {
   height: 100px;
   width: 200px;
-  margin: 10px;
+  /* margin: 10px; */
   background-color: rgba(2, 106, 167, 1);
   padding: 8px;
   border-radius: 3px;

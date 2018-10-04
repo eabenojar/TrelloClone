@@ -3,44 +3,8 @@ import "../styles/Home.css";
 import uuidv1 from "uuid/v1";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-// fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
-    id: `item-${k}`,
-    content: `item ${k}`
-  }));
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 250
-});
+// import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import BoardBox from "./BoardBox";
 
 class Home extends Component {
   constructor(props) {
@@ -49,8 +13,7 @@ class Home extends Component {
       boards: [],
       hideForm: true,
       boardTitle: "",
-      showModal: false,
-      items: getItems(10)
+      showModal: false
     };
     this.onChange = this.onChange.bind(this);
     this.addList = this.addList.bind(this);
@@ -62,16 +25,16 @@ class Home extends Component {
     if (!result.destination) {
       return;
     }
-    console.log("DRAG ITEMS", this.state.items, "RESULT", result);
-    const items = reorder(
-      this.state.items,
-      result.source.index,
-      result.destination.index
-    );
+    // console.log("DRAG ITEMS", this.state.items, "RESULT", result);
+    // const items = reorder(
+    //   this.state.items,
+    //   result.source.index,
+    //   result.destination.index
+    // );
 
-    this.setState({
-      items
-    });
+    // this.setState({
+    //   items
+    // });
   }
   componentDidMount() {
     var data = localStorage.getItem("boards");
@@ -80,9 +43,6 @@ class Home extends Component {
       boards: data
     });
     console.log("DATA", data);
-  }
-  onPress() {
-    console.log("Pressed");
   }
   addList() {
     console.log("ADD LIST");
@@ -112,7 +72,8 @@ class Home extends Component {
     console.log(addBoard);
     this.setState({
       boards: addBoard,
-      boardTitle: ""
+      boardTitle: "",
+      showModal: false
     });
     localStorage.setItem("boards", JSON.stringify(addBoard));
   };
@@ -133,24 +94,14 @@ class Home extends Component {
     return (
       <div className="container">
         <div className="board-container">
+          <div className="board-container__title-section">
+            <h1 className="board-container-title">Personal Boards</h1>
+          </div>
+
           <div className="board-container all-boards">
             {this.state.boards !== null
               ? this.state.boards.map((board, i) => {
-                  return (
-                    <Link
-                      to={{
-                        pathname: `/board/${board.id}`,
-                        state: {
-                          board
-                        }
-                      }}
-                      key={i}
-                    >
-                      <div board={board} className="board-box">
-                        <h1 className="board-box__title">{board.boardTitle}</h1>
-                      </div>
-                    </Link>
-                  );
+                  return <BoardBox board={board} index={i} key={i} />;
                 })
               : null}
             <a className="add-board button" onClick={this.addList}>
@@ -162,93 +113,8 @@ class Home extends Component {
               handleAddBoard={this.addBoard}
               props={{ ...this.state }}
               handleChange={this.onChange}
-            >
-              <p>Modal</p>
-              <p>Data</p>
-              <h1>TESTSETTES</h1>
-            </Modal>
-            {this.state.showModal === true ? (
-              <div className="board-container__form">
-                <form onSubmit={this.addBoard}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter list title"
-                    value={this.state.boardTitle}
-                    onChange={this.onChange}
-                  />
-                  <input type="submit" value="Add List" />
-                  <button>X</button>
-                </form>
-              </div>
-            ) : null}
+            />
           </div>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {this.state.items.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          {item.content}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {this.state.items.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          {item.content}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
         </div>
       </div>
     );

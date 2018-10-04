@@ -17,12 +17,6 @@ class Board extends Component {
       cardTitle: "",
       cardDescription: ""
     };
-    this.addList = this.addList.bind(this);
-    this.onHandleChange = this.onHandleChange.bind(this);
-    this.pressAddCard = this.pressAddCard.bind(this);
-    this.exitForm = this.exitForm.bind(this);
-    this.onHandleChangeCard = this.onHandleChangeCard.bind(this);
-    this.addCard = this.addCard.bind(this);
   }
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
@@ -52,19 +46,19 @@ class Board extends Component {
     });
     console.log(this.props.board);
   }
-  onHandleChange(event) {
+  onHandleChange = event => {
     console.log(event.target.value);
     this.setState({
       listTitle: event.target.value
     });
-  }
-  onHandleChangeCard(event) {
+  };
+  onHandleChangeCard = event => {
     console.log(event.target.value);
     this.setState({
       cardTitle: event.target.value
     });
-  }
-  addList(event) {
+  };
+  addList = event => {
     event.preventDefault();
     var obj = {
       id: uuidv1(),
@@ -87,20 +81,20 @@ class Board extends Component {
       showAddButton: false,
       lists: listArr
     });
-  }
-  pressAddCard(e, list) {
+  };
+  pressAddCard = (e, list) => {
     console.log("PREC CARFA", list);
     this.setState({
       showAddCard: false
     });
-  }
-  exitForm(e) {
+  };
+  exitForm = e => {
     console.log("EXIT PRESSED", e);
     this.setState({
       showAddCard: true
     });
-  }
-  addCard(event, list) {
+  };
+  addCard = (event, list) => {
     event.preventDefault();
     const obj = {
       cardTitle: this.state.cardTitle,
@@ -133,7 +127,7 @@ class Board extends Component {
     localStorage.setItem("boards", JSON.stringify(data));
 
     console.log("LISSSTST", this.state.boards, this.state.lists);
-  }
+  };
   render() {
     console.log("RENDER BOARDS", this.state.boards);
     const { board } = this.props.location.state;
@@ -167,52 +161,54 @@ class Board extends Component {
             </div>
           )}
           <div className="board-canvas__lists">
-            {this.state.lists !== null
-              ? this.state.lists.map((list, i) => {
-                  return (
-                    <div className="board-canvas__lists--container" key={i}>
-                      <h1 className="lists--container list-title">
-                        {list.listTitle}
-                      </h1>
-                      {list.cards !== null
-                        ? list.cards.map((card, i) => {
-                            return (
-                              <div key={i} className="card-container">
-                                <h1>{card.cardTitle}</h1>
-                              </div>
-                            );
-                          })
-                        : null}
-                      {this.state.showAddCard === true ? (
-                        <div className="list__button ">
-                          <button
-                            className="list__button--add"
-                            onClick={e => this.pressAddCard(e, list)}
-                          >
-                            + Add a card
-                          </button>
-                        </div>
-                      ) : (
-                        <div>
-                          <form onSubmit={e => this.addCard(e, list)}>
-                            <label>
-                              <input
-                                type="textarea"
-                                placeholder="Enter list title..."
-                                onChange={this.onHandleChangeCard}
-                              />
-                            </label>
-                            <input type="submit" value="Add List" />
-                          </form>
-                          <button onClick={e => this.exitForm(e, list)}>
-                            X
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
-              : null}
+            <DragDropContext>
+              {this.state.lists !== null
+                ? this.state.lists.map((list, i) => {
+                    return (
+                      <div className="board-canvas__lists--container" key={i}>
+                        <h1 className="lists--container list-title">
+                          {list.listTitle}
+                        </h1>
+                        {list.cards !== null
+                          ? list.cards.map((card, i) => {
+                              return (
+                                <div key={i} className="card-container">
+                                  <h1>{card.cardTitle}</h1>
+                                </div>
+                              );
+                            })
+                          : null}
+                        {this.state.showAddCard === true ? (
+                          <div className="list__button ">
+                            <button
+                              className="list__button--add"
+                              onClick={e => this.pressAddCard(e, list)}
+                            >
+                              + Add a card
+                            </button>
+                          </div>
+                        ) : (
+                          <div>
+                            <form onSubmit={e => this.addCard(e, list)}>
+                              <label>
+                                <input
+                                  type="textarea"
+                                  placeholder="Enter list title..."
+                                  onChange={this.onHandleChangeCard}
+                                />
+                              </label>
+                              <input type="submit" value="Add List" />
+                            </form>
+                            <button onClick={e => this.exitForm(e, list)}>
+                              X
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
+                : null}
+            </DragDropContext>
           </div>
         </div>
       </div>
