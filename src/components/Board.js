@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "../styles/Board.css";
-import List from "./List";
 import uuidv1 from "uuid/v1";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import List from "./List";
 
 class Board extends Component {
   constructor(props) {
@@ -163,48 +163,26 @@ class Board extends Component {
           <div className="board-canvas__lists">
             <DragDropContext>
               {this.state.lists !== null
-                ? this.state.lists.map((list, i) => {
+                ? this.state.lists.map((list, index) => {
                     return (
-                      <div className="board-canvas__lists--container" key={i}>
-                        <h1 className="lists--container list-title">
-                          {list.listTitle}
-                        </h1>
-                        {list.cards !== null
-                          ? list.cards.map((card, i) => {
-                              return (
-                                <div key={i} className="card-container">
-                                  <h1>{card.cardTitle}</h1>
-                                </div>
-                              );
-                            })
-                          : null}
-                        {this.state.showAddCard === true ? (
-                          <div className="list__button ">
-                            <button
-                              className="list__button--add"
-                              onClick={e => this.pressAddCard(e, list)}
-                            >
-                              + Add a card
-                            </button>
-                          </div>
-                        ) : (
-                          <div>
-                            <form onSubmit={e => this.addCard(e, list)}>
-                              <label>
-                                <input
-                                  type="textarea"
-                                  placeholder="Enter list title..."
-                                  onChange={this.onHandleChangeCard}
-                                />
-                              </label>
-                              <input type="submit" value="Add List" />
-                            </form>
-                            <button onClick={e => this.exitForm(e, list)}>
-                              X
-                            </button>
-                          </div>
+                      <Droppable draggableId={list.id}>
+                        {provided => (
+                          <List
+                            props
+                            list={list}
+                            index={index}
+                            showAddCard={this.state.showAddCard}
+                            pressAddCard={this.pressAddCard}
+                            addCard={this.addCard}
+                            exitForm={this.exitForm}
+                            state={this.state}
+                            onHandleChangeCard={this.onHandleChangeCard}
+                            innerRef={provided.innerRef}
+                            {...provided.droppableProps}
+                            provided={provided}
+                          />
                         )}
-                      </div>
+                      </Droppable>
                     );
                   })
                 : null}
