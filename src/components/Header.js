@@ -1,10 +1,29 @@
 import React from "react";
-import "../styles/Home.css";
+import "../styles/Header.css";
+import { FaMicrosoft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="header">
-      <h1 className="header__title">Trello Clone</h1>
+      <div className="header__left">
+        <Link
+          to={{
+            pathname: `/`
+          }}
+        >
+          <FaMicrosoft
+            size={40}
+            color={"rgb(230, 237, 241)"}
+            style={{ margin: "0 15px" }}
+          />{" "}
+        </Link>
+        <h1 id="board-icon-title">Boards</h1>
+      </div>
+      <div className="header__center">
+        <h1 className="header__center--title">Trello</h1>
+      </div>
+      <div className="header__right">Hello</div>
     </div>
   );
 };

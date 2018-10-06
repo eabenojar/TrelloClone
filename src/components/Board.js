@@ -18,6 +18,9 @@ class Board extends Component {
       cardDescription: ""
     };
   }
+  onDragEnd = result => {
+    console.log("ON DRAG END", result);
+  };
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
     var data = localStorage.getItem("boards");
@@ -97,6 +100,7 @@ class Board extends Component {
   addCard = (event, list) => {
     event.preventDefault();
     const obj = {
+      id: uuidv1(),
       cardTitle: this.state.cardTitle,
       cardTitleDescription: ""
     };
@@ -161,28 +165,21 @@ class Board extends Component {
             </div>
           )}
           <div className="board-canvas__lists">
-            <DragDropContext>
+            <DragDropContext onDragEnd={this.onDragEnd}>
               {this.state.lists !== null
                 ? this.state.lists.map((list, index) => {
                     return (
-                      <Droppable draggableId={list.id}>
-                        {provided => (
-                          <List
-                            props
-                            list={list}
-                            index={index}
-                            showAddCard={this.state.showAddCard}
-                            pressAddCard={this.pressAddCard}
-                            addCard={this.addCard}
-                            exitForm={this.exitForm}
-                            state={this.state}
-                            onHandleChangeCard={this.onHandleChangeCard}
-                            innerRef={provided.innerRef}
-                            {...provided.droppableProps}
-                            provided={provided}
-                          />
-                        )}
-                      </Droppable>
+                      <List
+                        props
+                        list={list}
+                        index={index}
+                        showAddCard={this.state.showAddCard}
+                        pressAddCard={this.pressAddCard}
+                        addCard={this.addCard}
+                        exitForm={this.exitForm}
+                        state={this.state}
+                        onHandleChangeCard={this.onHandleChangeCard}
+                      />
                     );
                   })
                 : null}

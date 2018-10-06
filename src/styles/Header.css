@@ -1,0 +1,36 @@
+.header {
+  height: 60px;
+  background-color: rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__left,
+.header__right {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  /* background-color: red; */
+}
+#board-icon-title {
+  font-size: 18px;
+  font-weight: 200;
+  /* margin-top: 16px; */
+  color: #b3daf1;
+  font-family: sans-serif;
+}
+.header__center {
+  flex: 4;
+  color: rgba(2, 106, 167, 1);
+  font-size: 28px;
+  font-style: italic;
+  font-family: "Courgette", cursive, sans-serif;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+}
+.board-icon {
+  height: 50px;
+  width: 50px;
+  color: red;
+}
