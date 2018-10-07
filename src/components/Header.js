@@ -15,7 +15,7 @@ const Header = () => {
           <FaMicrosoft
             size={40}
             color={"rgb(230, 237, 241)"}
-            style={{ margin: "0 15px" }}
+            style={{ margin: "0 15px 0 23px" }}
           />{" "}
         </Link>
         <h1 id="board-icon-title">Boards</h1>
@@ -23,7 +23,7 @@ const Header = () => {
       <div className="header__center">
         <h1 className="header__center--title">Trello</h1>
       </div>
-      <div className="header__right">Hello</div>
+      <div className="header__right" />
     </div>
   );
 };

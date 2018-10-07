@@ -22,22 +22,32 @@
   height: 100%;
 }
 .board__header--title {
-  font-size: 18px;
+  font-size: 28px;
   font-weight: 700;
   line-height: 32px;
   font-family: sans-serif;
-  color: #fff;
+  color: rgba(2, 106, 167, 1);
+  margin: 15px 4px 0px 15px;
 }
 .board__button--add {
   background-color: rgba(2, 106, 167, 1);
   border: 1px solid transparent;
   width: 272px;
   height: 40px;
-  color: lightgray;
+  color: #fff;
   border-radius: 3px;
   font-size: 14px;
   text-align: left;
-  margin: 8px 4px 8px 8px;
+  margin: 16px 4px 16px 23px;
+}
+.board__form--input {
+  border: 1px solid transparent;
+  width: 272px;
+  height: 40px;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 16px 4px 16px 23px;
+  padding: 0 0 0 10px;
 }
 .board-canvas__lists {
   width: auto;

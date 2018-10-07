@@ -76,11 +76,43 @@
   color: #6b808c;
   font-size: 14px;
   text-align: left;
-  margin-bottom: 5px;
+  margin: 10px 0px 10px 0px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 .list__button--add:hover {
   background-color: #6b808c;
   color: #fff;
+}
+.board__form--submit {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  height: 44px;
+  width: 85px;
+  border-radius: 3px;
+  text-align: center;
+  margin-left: 2px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+.board__form--cancel {
+  background-color: rgba(2, 106, 167, 1); /* Green */
+  border: none;
+  color: white;
+  height: 44px;
+  width: 44px;
+  margin-left: 4px;
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+.board__form--cancel:hover,
+.board__form--submit:hover {
+  opacity: 0.8;
 }

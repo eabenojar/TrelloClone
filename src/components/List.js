@@ -26,13 +26,13 @@ const List = props => {
             className="list-box"
           >
             {props.list.cards !== null
-              ? props.list.cards.map((card, i) => {
+              ? props.list.cards.map((card, index) => {
                   return (
                     // <div key={i}>
-                    <Draggable draggableId={card.id} index={props.index}>
+                    <Draggable draggableId={card.id} index={index}>
                       {(provided, snapshot) => (
                         <div
-                          key={i}
+                          key={index}
                           className="card-container"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}

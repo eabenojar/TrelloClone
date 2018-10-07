@@ -9,6 +9,7 @@ class Board extends Component {
     super(props);
     this.state = {
       boardTitle: "",
+      boards: [],
       lists: [],
       listTitle: "",
       listDescription: "",
@@ -33,12 +34,57 @@ class Board extends Component {
     ) {
       return;
     }
-
+    // Start List
     const startList = source.droppableId;
+    // List to drag too
     const finishList = destination.droppableId;
     if (startList === finishList) {
+      const listCopy = [...this.state.lists];
+      // Find List that card is moved in
+      const listDragged = listCopy.filter(
+        list => list.id === destination.droppableId
+      );
+      console.log("LIST COPY", listDragged[0].cards);
+      // Move cards to a new index
+      const card = listDragged[0].cards.splice(source.index, 1);
+      listDragged[0].cards.splice(destination.index, 0, ...card);
+      console.log("FINAL LIST", listDragged);
+      listCopy.map(list => {
+        if (list.id === listDragged[0].id) {
+          list = listDragged[0];
+        }
+      });
+      console.log("NEW AND FINAL", listCopy);
+      this.setState({
+        lists: listCopy
+      });
+      console.log("MOVE NEW LIST", this.state.boards);
+      const newData = JSON.stringify(this.state.boards);
+      localStorage.setItem("boards", newData);
+    } else if (startList !== finishList) {
+      const listCopy = [...this.state.lists];
+      const startDrag = listCopy.filter(list => list.id === source.droppableId);
+      const card = startDrag[0].cards.splice(source.index, 1);
+      console.log(
+        "LIST COPY AFTER START",
+        listCopy,
+        "START",
+        startDrag,
+        "CARD",
+        card
+      );
+      const endDrag = listCopy.filter(
+        list => list.id === destination.droppableId
+      );
+      console.log("ENDDDDD", endDrag);
+      endDrag[0].cards.splice(destination.index, 0, card[0]);
+      console.log("MOVED TO ANOTHER LIST", listCopy);
+      this.setState({
+        list: listCopy
+      });
+      const newData = JSON.stringify(this.state.boards);
+      localStorage.setItem("boards", newData);
     }
-    console.log(startList, finishList, startList === finishList);
   };
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
@@ -75,8 +121,16 @@ class Board extends Component {
       cardTitle: event.target.value
     });
   };
+  cancelAddList = () => {
+    this.setState({
+      showAddButton: false
+    });
+  };
   addList = event => {
     event.preventDefault();
+    if (this.state.listTitle.length === 0) {
+      return;
+    }
     var obj = {
       id: uuidv1(),
       listTitle: this.state.listTitle,
@@ -90,14 +144,14 @@ class Board extends Component {
         return item;
       }
     });
-    localStorage.setItem("boards", JSON.stringify(this.state.boards));
-    console.log("ADD LIST", this.state.boards);
+
     const listArr = [...this.state.lists];
-    listArr.push(obj);
     this.setState({
       showAddButton: false,
       lists: listArr
     });
+    localStorage.setItem("boards", JSON.stringify(this.state.boards));
+    console.log("ADD LIST", this.state.boards);
   };
   pressAddCard = (e, list) => {
     this.setState({
@@ -171,12 +225,23 @@ class Board extends Component {
               <form onSubmit={this.addList}>
                 <label>
                   <input
+                    className="board__form--input"
                     type="text"
                     placeholder="Enter list title..."
                     onChange={this.onHandleChange}
                   />
                 </label>
-                <input type="submit" value="Add List" />
+                <input
+                  className="board__form--submit"
+                  type="submit"
+                  value="Add List"
+                />
+                <button
+                  className="board__form--cancel"
+                  onClick={this.cancelAddList}
+                >
+                  X
+                </button>
               </form>
             </div>
           )}
