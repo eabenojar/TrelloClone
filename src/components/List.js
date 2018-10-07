@@ -1,12 +1,23 @@
 import React, { Component } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/List.css";
+import { FaEllipsisH } from "react-icons/fa";
 
 const List = props => {
   console.log("LIST FROM LIST", props);
   return (
     <div className="board-canvas__lists--container" key={props.index}>
-      <h1 className="lists--container list-title">{props.list.listTitle}</h1>
+      <div className="list-title-section">
+        <h1 className="lists--container list-title">{props.list.listTitle}</h1>
+        <button className="list-title-button" onClick={props.editList}>
+          <FaEllipsisH
+            size={20}
+            color={"#026AA7"}
+            style={{ margin: "0 15px" }}
+          />
+        </button>
+      </div>
+
       <Droppable droppableId={props.list.id}>
         {provided => (
           <div
@@ -16,25 +27,44 @@ const List = props => {
           >
             {props.list.cards !== null
               ? props.list.cards.map((card, i) => {
-                  console.log(card, "caegaekjn");
                   return (
-                    <div>
-                      <Draggable draggableId={card.id} index={props.index}>
-                        {provided => (
+                    // <div key={i}>
+                    <Draggable draggableId={card.id} index={props.index}>
+                      {(provided, snapshot) => (
+                        <div
+                          key={i}
+                          className="card-container"
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          isDragging={snapshot.isDragging}
+                        >
                           <div
-                            key={i}
-                            className="card-container"
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
+                            style={{
+                              height: "100%",
+                              backgroundColor: `${
+                                snapshot.isDragging ? "#026AA7" : "#FFF"
+                              }`,
+                              width: "100%",
+                              display: "flex",
+                              alignItems: "center"
+                            }}
                           >
-                            <h1 className="card-container-title">
+                            <h1
+                              className="card-container-title"
+                              style={{
+                                color: `${
+                                  snapshot.isDragging ? "#FFF" : "#17394d"
+                                }`
+                              }}
+                            >
                               {card.cardTitle}
                             </h1>
                           </div>
-                        )}
-                      </Draggable>
-                    </div>
+                        </div>
+                      )}
+                    </Draggable>
+                    // </div>
                   );
                 })
               : null}
@@ -62,7 +92,7 @@ const List = props => {
                 <button onClick={e => props.exitForm(e, props.list)}>X</button>
               </div>
             )}
-            {/* {provided.placeholder} */}
+            {provided.placeholder}
           </div>
         )}
       </Droppable>

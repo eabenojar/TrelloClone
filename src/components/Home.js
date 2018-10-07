@@ -18,24 +18,8 @@ class Home extends Component {
     this.onChange = this.onChange.bind(this);
     this.addList = this.addList.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
   }
-  onDragEnd(result) {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-    // console.log("DRAG ITEMS", this.state.items, "RESULT", result);
-    // const items = reorder(
-    //   this.state.items,
-    //   result.source.index,
-    //   result.destination.index
-    // );
 
-    // this.setState({
-    //   items
-    // });
-  }
   componentDidMount() {
     var data = localStorage.getItem("boards");
     data = JSON.parse(data);

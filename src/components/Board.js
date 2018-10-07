@@ -20,6 +20,25 @@ class Board extends Component {
   }
   onDragEnd = result => {
     console.log("ON DRAG END", result);
+    const { destination, source, draggableId } = result;
+    console.log("CURRENT LISTS", this.state.lists);
+    // Card is dropped in open space
+    if (!destination) {
+      return;
+    }
+    // Card was dropped in same location
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    const startList = source.droppableId;
+    const finishList = destination.droppableId;
+    if (startList === finishList) {
+    }
+    console.log(startList, finishList, startList === finishList);
   };
   componentDidMount() {
     console.log("DID MOUNT BOARD", this.props.location.state.board);
@@ -40,23 +59,18 @@ class Board extends Component {
         return board;
       }
     });
-    console.log("DATA BOARDS", data);
   }
   check(e) {
-    console.log("PRESSED");
     this.setState({
       showAddButton: true
     });
-    console.log(this.props.board);
   }
   onHandleChange = event => {
-    console.log(event.target.value);
     this.setState({
       listTitle: event.target.value
     });
   };
   onHandleChangeCard = event => {
-    console.log(event.target.value);
     this.setState({
       cardTitle: event.target.value
     });
@@ -86,7 +100,6 @@ class Board extends Component {
     });
   };
   pressAddCard = (e, list) => {
-    console.log("PREC CARFA", list);
     this.setState({
       showAddCard: false
     });
@@ -97,6 +110,9 @@ class Board extends Component {
       showAddCard: true
     });
   };
+  editList() {
+    console.log("LIST IS GOING TO BE EDITTED!");
+  }
   addCard = (event, list) => {
     event.preventDefault();
     const obj = {
@@ -170,6 +186,7 @@ class Board extends Component {
                 ? this.state.lists.map((list, index) => {
                     return (
                       <List
+                        key={index}
                         props
                         list={list}
                         index={index}
@@ -179,6 +196,7 @@ class Board extends Component {
                         exitForm={this.exitForm}
                         state={this.state}
                         onHandleChangeCard={this.onHandleChangeCard}
+                        editList={this.editList}
                       />
                     );
                   })
