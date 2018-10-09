@@ -7,6 +7,7 @@ import List from "./List";
 class Board extends Component {
   constructor(props) {
     super(props);
+    console.log("PROPS IN CONSTRUC", props.location.state.board.lists);
     this.state = {
       boardTitle: "",
       boards: [],
@@ -14,7 +15,8 @@ class Board extends Component {
       listTitle: "",
       listDescription: "",
       showAddButton: false,
-      showAddCard: true,
+      showAddCard: "1",
+      showEditCard: false,
       cardTitle: "",
       cardDescription: ""
     };
@@ -106,7 +108,7 @@ class Board extends Component {
       }
     });
   }
-  check(e) {
+  showAddList(e) {
     this.setState({
       showAddButton: true
     });
@@ -125,6 +127,12 @@ class Board extends Component {
     this.setState({
       showAddButton: false
     });
+  };
+  hoverEditCard = card => {
+    console.log("HOVER OVER CARD", card);
+  };
+  hoverEditCardEnd = card => {
+    console.log("HOVER OVER CARD OVER", card);
   };
   addList = event => {
     event.preventDefault();
@@ -155,7 +163,13 @@ class Board extends Component {
   };
   pressAddCard = (e, list) => {
     this.setState({
-      showAddCard: false
+      showAddCard: list.id
+    });
+  };
+  editCard = () => {
+    console.log("EDIT CARD");
+    this.setState({
+      showEditCard: true
     });
   };
   exitForm = e => {
@@ -215,7 +229,7 @@ class Board extends Component {
             <div className="board__button">
               <button
                 className="board__button--add"
-                onClick={e => this.check(e, this.props.board)}
+                onClick={e => this.showAddList(e, this.props.board)}
               >
                 + Add another list
               </button>
@@ -256,12 +270,16 @@ class Board extends Component {
                         list={list}
                         index={index}
                         showAddCard={this.state.showAddCard}
+                        showEditCard={this.state.showEditCard}
                         pressAddCard={this.pressAddCard}
                         addCard={this.addCard}
                         exitForm={this.exitForm}
                         state={this.state}
                         onHandleChangeCard={this.onHandleChangeCard}
                         editList={this.editList}
+                        editCard={this.editCard}
+                        hoverEditCard={this.hoverEditCard}
+                        hoverEditCardEnd={this.hoverEditCardEnd}
                       />
                     );
                   })

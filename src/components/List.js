@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/List.css";
-import { FaEllipsisH } from "react-icons/fa";
+import { FaEllipsisH, FaPencilAlt } from "react-icons/fa";
 
 const List = props => {
   console.log("LIST FROM LIST", props);
@@ -38,6 +38,8 @@ const List = props => {
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                           isDragging={snapshot.isDragging}
+                          onMouseEnter={() => props.hoverEditCard(card)}
+                          onMouseLeave={e => props.hoverEditCardEnd(e, card)}
                         >
                           <div
                             style={{
@@ -47,7 +49,9 @@ const List = props => {
                               }`,
                               width: "100%",
                               display: "flex",
-                              alignItems: "center"
+                              alignItems: "center",
+                              display: "flex",
+                              justifyContent: "space-between"
                             }}
                           >
                             <h1
@@ -60,6 +64,20 @@ const List = props => {
                             >
                               {card.cardTitle}
                             </h1>
+                            {props.showEditCard === false ? (
+                              <button
+                                className="list-title-button"
+                                onClick={props.editCard}
+                              >
+                                <FaPencilAlt
+                                  size={20}
+                                  color={"#026AA7"}
+                                  style={{ margin: "0 15px" }}
+                                />
+                              </button>
+                            ) : (
+                              <h1>Hello</h1>
+                            )}
                           </div>
                         </div>
                       )}
@@ -68,7 +86,7 @@ const List = props => {
                   );
                 })
               : null}
-            {props.showAddCard === true ? (
+            {props.showAddCard === "1" ? (
               <div className="list__button ">
                 <button
                   className="list__button--add"
