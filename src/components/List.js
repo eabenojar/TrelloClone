@@ -101,7 +101,7 @@ const List = props => {
                   <label>
                     <input
                       type="textarea"
-                      placeholder="Enter list title..."
+                      placeholder="Enter list title...,"
                       onChange={props.onHandleChangeCard}
                     />
                   </label>
