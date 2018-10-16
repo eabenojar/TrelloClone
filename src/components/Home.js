@@ -74,7 +74,7 @@ class Home extends Component {
   // };
   render() {
     console.log("RENDER", this.state.boards);
-
+    const { hideModal, addBoard, onChange } = this;
     return (
       <div className="container">
         <div className="board-container">
@@ -93,10 +93,10 @@ class Home extends Component {
             </a>
             <Modal
               showModal={this.state.showModal}
-              handleClose={this.hideModal}
-              handleAddBoard={this.addBoard}
+              handleClose={hideModal}
+              handleAddBoard={addBoard}
               props={{ ...this.state }}
-              handleChange={this.onChange}
+              handleChange={onChange}
             />
           </div>
         </div>
