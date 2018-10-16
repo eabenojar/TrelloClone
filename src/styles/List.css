@@ -116,3 +116,10 @@
 .board__form--submit:hover {
   opacity: 0.8;
 }
+
+.list-pencil-button {
+  opacity: 0;
+}
+.list-pencil-button:hover {
+  opacity: 1;
+}

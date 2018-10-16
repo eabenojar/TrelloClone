@@ -166,8 +166,8 @@ class Board extends Component {
       showAddCard: list.id
     });
   };
-  editCard = () => {
-    console.log("EDIT CARD");
+  editCard = card => {
+    console.log("EDIT CARD", card);
     this.setState({
       showEditCard: true
     });

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 // import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import BoardBox from "./BoardBox";
+import { connect } from "react-redux";
 
 class Home extends Component {
   constructor(props) {
@@ -104,5 +105,13 @@ class Home extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    state
+  };
+};
 
-export default Home;
+export default connect(
+  mapStateToProps,
+  {}
+)(Home);

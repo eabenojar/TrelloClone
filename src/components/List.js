@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/List.css";
 import { FaEllipsisH, FaPencilAlt } from "react-icons/fa";
+import ListModal from "./ListModal";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const List = props => {
   console.log("LIST FROM LIST", props);
@@ -38,8 +41,8 @@ const List = props => {
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
                           isDragging={snapshot.isDragging}
-                          onMouseEnter={() => props.hoverEditCard(card)}
-                          onMouseLeave={e => props.hoverEditCardEnd(e, card)}
+                          // onMouseEnter={() => props.hoverEditCard(card)}
+                          // onMouseLeave={e => props.hoverEditCardEnd(e, card)}
                         >
                           <div
                             style={{
@@ -67,16 +70,23 @@ const List = props => {
                             {props.showEditCard === false ? (
                               <button
                                 className="list-title-button"
-                                onClick={props.editCard}
+                                onClick={() => props.editCard(card)}
                               >
                                 <FaPencilAlt
                                   size={20}
                                   color={"#026AA7"}
                                   style={{ margin: "0 15px" }}
+                                  className="list-pencil-button"
                                 />
                               </button>
                             ) : (
-                              <h1>Hello</h1>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                // className={classes.button}
+                              >
+                                Primary
+                              </Button>
                             )}
                           </div>
                         </div>
