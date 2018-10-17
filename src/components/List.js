@@ -5,6 +5,8 @@ import { FaEllipsisH, FaPencilAlt } from "react-icons/fa";
 import ListModal from "./ListModal";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import TextField from "@material-ui/core/TextField";
 
 const List = props => {
   console.log("LIST FROM LIST", props);
@@ -67,27 +69,36 @@ const List = props => {
                             >
                               {card.cardTitle}
                             </h1>
-                            {props.showEditCard === false ? (
-                              <button
-                                className="list-title-button"
-                                onClick={() => props.editCard(card)}
+                            <button
+                              className="list-title-button"
+                              onClick={props.handleClick}
+                            >
+                              <FaPencilAlt
+                                size={20}
+                                color={"#026AA7"}
+                                style={{ margin: "0 15px" }}
+                                className="list-pencil-button"
+                              />
+                            </button>
+
+                            <Menu
+                              id="simple-menu"
+                              anchorEl={props.anchorEl}
+                              open={Boolean(props.anchorEl)}
+                              onClose={props.handleClose}
+                            >
+                              <MenuItem
+                                onClick={props.handleDeleteCard.bind(
+                                  this,
+                                  card
+                                )}
                               >
-                                <FaPencilAlt
-                                  size={20}
-                                  color={"#026AA7"}
-                                  style={{ margin: "0 15px" }}
-                                  className="list-pencil-button"
-                                />
-                              </button>
-                            ) : (
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                // className={classes.button}
-                              >
-                                Primary
-                              </Button>
-                            )}
+                                Delete
+                              </MenuItem>
+                              <MenuItem onClick={props.handleClose}>
+                                Edit
+                              </MenuItem>
+                            </Menu>
                           </div>
                         </div>
                       )}

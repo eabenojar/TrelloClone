@@ -18,7 +18,8 @@ class Board extends Component {
       showAddCard: "1",
       showEditCard: false,
       cardTitle: "",
-      cardDescription: ""
+      cardDescription: "",
+      anchorEl: null
     };
   }
   onDragEnd = result => {
@@ -216,6 +217,18 @@ class Board extends Component {
 
     console.log("LISSSTST", this.state.boards, this.state.lists);
   };
+  handleClose = event => {
+    console.log("EVENT", event.currentTarget);
+    this.setState({ anchorEl: null });
+  };
+  handleClick = event => {
+    console.log("HEY THIS IS CLICKED!");
+    this.setState({ anchorEl: event.currentTarget });
+  };
+  handleDeleteCard = card => {
+    console.log("DELETE CARD", card);
+    this.setState({ anchorEl: null });
+  };
   render() {
     console.log("RENDER BOARDS", this.state.boards);
     const { board } = this.props.location.state;
@@ -280,6 +293,11 @@ class Board extends Component {
                         editCard={this.editCard}
                         hoverEditCard={this.hoverEditCard}
                         hoverEditCardEnd={this.hoverEditCardEnd}
+                        anchorEl={this.state.anchorEl}
+                        handleClose={this.handleClose}
+                        handleClick={this.handleClick}
+                        handleDeleteCard={this.handleDeleteCard}
+                        displayInput={this.state.displayInput}
                       />
                     );
                   })
