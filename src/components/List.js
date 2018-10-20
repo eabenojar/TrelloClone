@@ -3,7 +3,6 @@ import { Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/List.css";
 import { FaEllipsisH, FaPencilAlt } from "react-icons/fa";
 import ListModal from "./ListModal";
-import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import TextField from "@material-ui/core/TextField";
