@@ -20,13 +20,16 @@ const Modal = ({
           <input
             type="text"
             name="name"
-            placeholder="Enter list title"
+            className="modal-input"
+            placeholder="Enter Board Title"
             value={props.boardTitle}
             onChange={handleChange}
           />
-          <input type="submit" value="Add List" />
+          <input type="submit" className="modal-submit" value="Add List" />
         </form>
-        <button onClick={handleClose}>X</button>
+        <button className="modal-close" onClick={handleClose}>
+          X
+        </button>
       </div>
     </div>
   );
