@@ -12,7 +12,6 @@ const Modal = ({
   const showHideClassName = showModal
     ? "modal display-block"
     : "modal display-none";
-  console.log("MODAL", props);
   return (
     <div className={showHideClassName}>
       <div className="board-container__form modal-main">

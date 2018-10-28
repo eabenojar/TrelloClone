@@ -63,7 +63,7 @@ class Home extends Component {
     localStorage.setItem("boards", JSON.stringify(addBoard));
   };
   onDragStart = () => {
-    console.log("ON START DRAG");
+    // console.log("ON START DRAG");
   };
   onDragUpdate = () => {
     console.log("ON UPDATE DRAG");
