@@ -8,7 +8,6 @@ import Menu from "@material-ui/core/Menu";
 import TextField from "@material-ui/core/TextField";
 
 const List = props => {
-  console.log("LIST FROM LIST", props);
   return (
     <div className="board-canvas__lists--container" key={props.index}>
       <div className="list-title-section">
