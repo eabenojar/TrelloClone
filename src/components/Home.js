@@ -30,14 +30,13 @@ class Home extends Component {
     console.log("DATA", data);
   }
   addList() {
-    console.log("ADD LIST");
+    // console.log("ADD LIST");
     this.setState({ showModal: true });
   }
   hideModal() {
     this.setState({ showModal: false });
   }
   onChange(event) {
-    console.log("ONCHAGE");
     this.setState({
       boardTitle: event.target.value
     });
