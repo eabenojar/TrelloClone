@@ -27,7 +27,6 @@ class Home extends Component {
     this.setState({
       boards: data
     });
-    console.log("DATA", data);
   }
   addList() {
     // console.log("ADD LIST");
