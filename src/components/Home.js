@@ -49,7 +49,6 @@ class Home extends Component {
       id: uuidv1(),
       lists: []
     };
-    console.log("OBJECT", obj);
     const addBoard = this.state.boards === null ? [] : [...this.state.boards];
     addBoard.push(obj);
     console.log(addBoard);
