@@ -7,7 +7,6 @@ import List from "./List";
 class Board extends Component {
   constructor(props) {
     super(props);
-    console.log("PROPS IN CONSTRUC", props.location.state.board.lists);
     this.state = {
       boardTitle: "",
       boards: [],
